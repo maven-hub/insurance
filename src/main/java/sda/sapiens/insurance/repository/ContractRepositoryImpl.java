@@ -3,6 +3,7 @@ package sda.sapiens.insurance.repository;
 import sda.sapiens.insurance.model.Contract;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -14,7 +15,9 @@ public class ContractRepositoryImpl implements ContractRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public ContractRepositoryImpl() {
+    @Inject
+    public ContractRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -28,5 +31,6 @@ public class ContractRepositoryImpl implements ContractRepository {
         return entityManager
                 .createQuery("FROM Contract", Contract.class)
                 .getResultList();
+//        return null;
     }
 }
